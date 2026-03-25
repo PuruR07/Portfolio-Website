@@ -149,14 +149,16 @@ const Contact = () => {
                 rows="4"
               ></textarea>
             </div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full md:w-auto bg-primary text-on-primary px-16 py-5 font-bold tracking-[0.2em] uppercase text-xs hover:opacity-90 transition-all flex items-center justify-center gap-4 cursor-pointer disabled:opacity-50 contact-form-item"
-            >
-              {loading ? 'SENDING...' : 'SEND BRIEF'}
-              <span className="material-symbols-outlined text-sm">north_east</span>
-            </button>
+            <div className="contact-form-item w-full md:w-auto">
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full md:w-auto bg-primary text-on-primary px-16 py-5 font-bold tracking-[0.2em] uppercase text-xs hover:opacity-90 transition-opacity flex items-center justify-center gap-4 cursor-pointer disabled:opacity-50"
+              >
+                {loading ? 'SENDING...' : 'SEND BRIEF'}
+                <span className="material-symbols-outlined text-sm">north_east</span>
+              </button>
+            </div>
           </form>
         </div>
       </div>
