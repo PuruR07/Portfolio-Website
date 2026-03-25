@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="bg-slate-900 border-t border-slate-800/50 py-10">
       <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="text-slate-400 text-sm">
-          &copy; {new Date().getFullYear()} DevPortfolio. All rights reserved.
+          &copy; {new Date().getFullYear()} Puru Raghuwanshi. All rights reserved.
         </div>
 
         <div className="flex space-x-6">

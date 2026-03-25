@@ -25,7 +25,7 @@ const NavBar = () => {
           className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 cursor-pointer"
           onClick={() => scrollToSection('home')}
         >
-          DevPortfolio
+          Puru Raghuwanshi
         </div>
         <div className="hidden md:flex space-x-8">
           {['home', 'projects', 'contact'].map((item) => (

@@ -12,7 +12,7 @@ const projectsData = [
   {
     title: 'Meer',
     description: 'A responsive React business website for a crochet brand, designed to beautifully showcase handmade products and engage prospective customers.',
-    techStack: ['React', 'Appwrite', 'Tailwind', 'Razor Pay'],
+    techStack: ['React', 'Appwrite', 'Tailwind', 'Razor Pay', 'API'],
     liveDemoUrl: 'https://meer.co.in/',
     githubUrl: 'https://github.com/PuruR07/Meer'
   },
