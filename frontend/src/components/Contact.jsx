@@ -70,7 +70,7 @@ const Contact = () => {
             Let's build <br />your <span className="italic">website.</span>
           </h2>
           <p className="font-body text-on-surface-variant text-lg mb-12 max-w-sm">
-            Currently accepting new projects for Q3 2026. If you have a vision that requires precision and soul, let's connect.
+            Currently accepting new projects for Q2 2026. If you have a vision that requires precision and soul, let's connect.
           </p>
           <div className="space-y-6">
             <div className="flex items-center gap-4">

@@ -1,5 +1,9 @@
 import React from 'react';
 import ProjectCard from './ProjectCard';
+import ladliImg from '../assets/ladlicollection-img.png';
+import meerImg from '../assets/meer-img.png';
+import choghadiyaImg from '../assets/choghadiya-img.png';
+import mamaSalonImg from '../assets/mamasalon-img.png';
 
 const projectsData = [
   {
@@ -8,7 +12,7 @@ const projectsData = [
     techStack: ['React', 'Vite', 'Tailwind'],
     liveDemoUrl: 'https://ladlicollection.netlify.app/',
     githubUrl: 'https://github.com/PuruR07/ladlicollection',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCFBqjAGU_l2nd7R0N6qjyy4KlEyVnVaHpapb7q0xCzqUmlo6wtnnvpjHeKWLb7JjVwrA72sB_xbQ0rNMA6XRpcRl4dRCmRksqAxXMr1KH4u39BJUuFoFvYLDuVIC-ILBcZcNCEFRFrAKTbYhfrnjtESwGqqEwrIZSp1nmsY5B_1Y1bXOyTGkL8Hgt_hboTI-M38Qf26dfvvRVFv4LuUjvrPDGeeDxAtUdwA5Kt63Dcjl3PFyfnadxdgrHWlezz91cMU_uanwWh-ZM'
+    image: ladliImg
   },
   {
     title: 'Meer',
@@ -16,7 +20,7 @@ const projectsData = [
     techStack: ['React', 'Appwrite', 'Tailwind', 'Razor Pay', 'API'],
     liveDemoUrl: 'https://meer.co.in/',
     githubUrl: 'https://github.com/PuruR07/Meer',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAIkiMw2kxxQGwMZ3RHW2MGtL6-7Ty8YLmb2YGCoaNypWnLfE6Dqv83wiuEgsX4PEYLmWYX9LTimp531YwIh1_Gj4EMvu2a1ey-_ZXfJtFcFRRo8hWbkn9cwKxPIi0ZanJmxew_0Fb23nE9U7BcfeMxKIFaD-ViZEYSfakJiwpGCibDmm8-c6FnNHD7lILnJpshDImCVJ9ESEWhF3jsTmBCPyhnZat9oBXtTEceFfY6h0SnPdu0B0BpEEZxpwMo_Q34xJ3Z-yjQbc0'
+    image: meerImg
   },
   {
     title: 'Choghadiya Calculator',
@@ -24,7 +28,7 @@ const projectsData = [
     techStack: ['React', 'Vite', 'Tailwind'],
     liveDemoUrl: 'https://vidisha-mahurat.vercel.app/',
     githubUrl: 'https://github.com/PuruR07/MahuratApp',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDfkEMHRgftF9tLRoMS5ZOJUbRdrQzqdgl0wX2pRXn8Jt83c85sSiQUjOEnsBJk_U2a7EKkJyZPs4k8Zb3epVak4fgjSon3TAB_mHVaJKg9KhOzareHpWIz-yNO1rwOjgf_uX4hJtv6XxrhS17Cs4nZmS4OYAiLCDfkLNr3s8qfJ99b9aU8lgjjGnxLWZgPWWMiYPsXuM-5rqdQHVxMxp7NaLKrBPNX0dM2OLMW6kBB49X1J2aLAJavZCsZn28UZAD5W8gXUov6ovs'
+    image: choghadiyaImg
   },
   {
     title: 'Mama Salon',
@@ -32,7 +36,7 @@ const projectsData = [
     techStack: ['React', 'Vite', 'Tailwind'],
     liveDemoUrl: 'https://mamasalon.netlify.app/',
     githubUrl: 'https://github.com/PuruR07/Mama-Salon',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBIt0b4Bq_gn29LwT1uKRmJ5WlFUSdyx05Oa0I53ToYiSdXy-nZ9_ypmC2jmRrS-JLLf_MDeF7aam7oAXN3Y5Zej16yj7kHgD3O511FCcHX2Y68uNHDocq_6EkbMH50-_5rpgRGdzQZQYdB9gV0HDTf0jwtsMjlMnfjxWai26oBkXxCUYRfv819Nma6b_b_mH9uS2SBaBqZVtsiiLOpgkh3E2ddJn5C-N7nQMaSd_ulXjURSiPQMjR43sfDQcu1Kb0hRVeJ7J3PF3E'
+    image: mamaSalonImg
   }
 ];
 
