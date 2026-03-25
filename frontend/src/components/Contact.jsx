@@ -67,15 +67,15 @@ const Contact = () => {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24">
         <div>
           <h2 className="font-headline text-5xl md:text-7xl leading-tight tracking-tighter mb-12 text-white">
-            Let's build <br/>your <span className="italic">website.</span>
+            Let's build <br />your <span className="italic">website.</span>
           </h2>
           <p className="font-body text-on-surface-variant text-lg mb-12 max-w-sm">
-            Currently accepting new projects for Q3 2024. If you have a vision that requires precision and soul, let's connect.
+            Currently accepting new projects for Q3 2026. If you have a vision that requires precision and soul, let's connect.
           </p>
           <div className="space-y-6">
             <div className="flex items-center gap-4">
               <span className="material-symbols-outlined text-primary">mail</span>
-              <span className="font-label text-sm tracking-widest text-on-surface">HELLO@PURURAGHUWANSHI.DEV</span>
+              <span className="font-label text-sm tracking-widest text-on-surface">PURURAGHUWANSHI07@GMAIL.COM</span>
             </div>
             <div className="flex items-center gap-4">
               <span className="material-symbols-outlined text-primary">location_on</span>
