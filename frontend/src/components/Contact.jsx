@@ -56,7 +56,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-slate-900 border-t border-slate-800/50">
+    <section className="bg-surface-container-low py-32 px-6 md:px-12" id="contact">
       <Toaster position="bottom-right" toastOptions={{
         style: {
           background: '#1e293b',
@@ -64,65 +64,70 @@ const Contact = () => {
           border: '1px solid #334155'
         }
       }} />
-      <div className="absolute top-1/2 right-0 w-96 h-96 bg-purple-500/10 blur-[100px] rounded-full pointer-events-none"></div>
-
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 inline-block mb-4">
-            Get In Touch
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24">
+        <div>
+          <h2 className="font-headline text-5xl md:text-7xl leading-tight tracking-tighter mb-12 text-white">
+            Let's build <br/>your <span className="italic">website.</span>
           </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-            Have a question, an idea, or a project in mind? Let's talk about it.
+          <p className="font-body text-on-surface-variant text-lg mb-12 max-w-sm">
+            Currently accepting new projects for Q3 2024. If you have a vision that requires precision and soul, let's connect.
           </p>
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              <span className="material-symbols-outlined text-primary">mail</span>
+              <span className="font-label text-sm tracking-widest text-on-surface">HELLO@PURURAGHUWANSHI.DEV</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="material-symbols-outlined text-primary">location_on</span>
+              <span className="font-label text-sm tracking-widest text-on-surface">REMOTE / GLOBAL</span>
+            </div>
+          </div>
         </div>
-
-        <div className="max-w-2xl mx-auto">
-          <form onSubmit={handleSubmit} className="glass rounded-2xl p-8 flex flex-col gap-6">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">Name</label>
+        <div>
+          <form onSubmit={handleSubmit} className="space-y-12">
+            <div className="group relative">
+              <label htmlFor="name" className="block font-label text-[10px] tracking-[0.3em] uppercase text-outline mb-2 group-focus-within:text-primary transition-colors">NAME</label>
               <input
-                type="text"
                 id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                placeholder="John Doe"
+                className="w-full bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary px-0 py-4 font-body text-lg placeholder:text-surface-container-highest transition-all text-on-surface"
+                placeholder="YOUR NAME"
+                type="text"
               />
             </div>
-            
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">Email</label>
+            <div className="group relative">
+              <label htmlFor="email" className="block font-label text-[10px] tracking-[0.3em] uppercase text-outline mb-2 group-focus-within:text-primary transition-colors">EMAIL</label>
               <input
-                type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                placeholder="john@example.com"
+                className="w-full bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary px-0 py-4 font-body text-lg placeholder:text-surface-container-highest transition-all text-on-surface"
+                placeholder="EMAIL@DOMAIN.COM"
+                type="email"
               />
             </div>
-
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">Message</label>
+            <div className="group relative">
+              <label htmlFor="message" className="block font-label text-[10px] tracking-[0.3em] uppercase text-outline mb-2 group-focus-within:text-primary transition-colors">OBJECTIVE</label>
               <textarea
                 id="message"
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                rows="5"
-                className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
-                placeholder="How can I help you?"
-              />
+                className="w-full bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary px-0 py-4 font-body text-lg placeholder:text-surface-container-highest transition-all resize-none text-on-surface"
+                placeholder="TELL ME ABOUT YOUR VISION"
+                rows="4"
+              ></textarea>
             </div>
-
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 mt-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-bold text-lg text-white hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all transform hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
+              className="w-full md:w-auto bg-primary text-on-primary px-16 py-5 font-bold tracking-[0.2em] uppercase text-xs hover:opacity-90 transition-all flex items-center justify-center gap-4 cursor-pointer disabled:opacity-50"
             >
-              {loading ? 'Sending...' : 'Send Message'}
+              {loading ? 'SENDING...' : 'SEND BRIEF'}
+              <span className="material-symbols-outlined text-sm">north_east</span>
             </button>
           </form>
         </div>
