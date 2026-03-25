@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 import ProjectCard from './ProjectCard';
 import ladliImg from '../assets/ladlicollection-img.png';
 import meerImg from '../assets/meer-img.png';
@@ -41,9 +43,24 @@ const projectsData = [
 ];
 
 const Projects = () => {
+  const container = useRef(null);
+
+  useGSAP(() => {
+    gsap.from('.projects-header', {
+      scrollTrigger: {
+        trigger: '.projects-header',
+        start: 'top 80%',
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out'
+    });
+  }, { scope: container });
+
   return (
-    <section className="px-6 md:px-12 mb-48 pt-24" id="projects">
-      <div className="flex flex-col md:flex-row justify-between items-baseline mb-20">
+    <section ref={container} className="px-6 md:px-12 mb-48 pt-24" id="projects">
+      <div className="flex flex-col md:flex-row justify-between items-baseline mb-20 projects-header">
         <h2 className="font-headline text-5xl md:text-6xl tracking-tighter uppercase mb-4 md:mb-0 text-white">Selected works</h2>
         <div className="w-full md:w-1/3 h-[1px] bg-outline-variant/30 hidden md:block mx-12"></div>
         <p className="font-label text-xs tracking-[0.3em] uppercase text-outline">Vol. 01 — 24</p>

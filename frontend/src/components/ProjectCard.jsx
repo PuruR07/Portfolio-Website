@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const ProjectCard = ({ title, techStack, liveDemoUrl, githubUrl, image, index }) => {
+  const cardRef = useRef(null);
+
+  useGSAP(() => {
+    gsap.from(cardRef.current, {
+      scrollTrigger: {
+        trigger: cardRef.current,
+        start: 'top 85%',
+      },
+      y: 100,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out'
+    });
+  });
+
   return (
-    <div className={`group cursor-pointer ${index % 2 !== 0 ? 'md:mt-24' : ''}`}>
+    <div ref={cardRef} className={`group cursor-pointer ${index % 2 !== 0 ? 'md:mt-24' : ''}`}>
       <div className="aspect-video bg-surface-container overflow-hidden mb-8 relative">
         <img 
           alt={title} 

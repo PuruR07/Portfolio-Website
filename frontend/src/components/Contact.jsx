@@ -1,7 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const Contact = () => {
+  const container = useRef(null);
+
+  useGSAP(() => {
+    gsap.from('.contact-header', {
+      scrollTrigger: {
+        trigger: container.current,
+        start: 'top 80%',
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out'
+    });
+
+    gsap.from('.contact-form-item', {
+      scrollTrigger: {
+        trigger: '.contact-form',
+        start: 'top 80%',
+      },
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'power3.out'
+    });
+  }, { scope: container });
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [loading, setLoading] = useState(false);
 
@@ -56,7 +84,7 @@ const Contact = () => {
   };
 
   return (
-    <section className="bg-surface-container-low py-32 px-6 md:px-12" id="contact">
+    <section ref={container} className="bg-surface-container-low py-32 px-6 md:px-12" id="contact">
       <Toaster position="bottom-right" toastOptions={{
         style: {
           background: '#1e293b',
@@ -65,7 +93,7 @@ const Contact = () => {
         }
       }} />
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24">
-        <div>
+        <div className="contact-header">
           <h2 className="font-headline text-5xl md:text-7xl leading-tight tracking-tighter mb-12 text-white">
             Let's build <br />your <span className="italic">website.</span>
           </h2>
@@ -84,8 +112,8 @@ const Contact = () => {
           </div>
         </div>
         <div>
-          <form onSubmit={handleSubmit} className="space-y-12">
-            <div className="group relative">
+          <form onSubmit={handleSubmit} className="space-y-12 contact-form">
+            <div className="group relative contact-form-item">
               <label htmlFor="name" className="block font-label text-[10px] tracking-[0.3em] uppercase text-outline mb-2 group-focus-within:text-primary transition-colors">NAME</label>
               <input
                 id="name"
@@ -97,7 +125,7 @@ const Contact = () => {
                 type="text"
               />
             </div>
-            <div className="group relative">
+            <div className="group relative contact-form-item">
               <label htmlFor="email" className="block font-label text-[10px] tracking-[0.3em] uppercase text-outline mb-2 group-focus-within:text-primary transition-colors">EMAIL</label>
               <input
                 id="email"
@@ -109,7 +137,7 @@ const Contact = () => {
                 type="email"
               />
             </div>
-            <div className="group relative">
+            <div className="group relative contact-form-item">
               <label htmlFor="message" className="block font-label text-[10px] tracking-[0.3em] uppercase text-outline mb-2 group-focus-within:text-primary transition-colors">OBJECTIVE</label>
               <textarea
                 id="message"
@@ -124,7 +152,7 @@ const Contact = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full md:w-auto bg-primary text-on-primary px-16 py-5 font-bold tracking-[0.2em] uppercase text-xs hover:opacity-90 transition-all flex items-center justify-center gap-4 cursor-pointer disabled:opacity-50"
+              className="w-full md:w-auto bg-primary text-on-primary px-16 py-5 font-bold tracking-[0.2em] uppercase text-xs hover:opacity-90 transition-all flex items-center justify-center gap-4 cursor-pointer disabled:opacity-50 contact-form-item"
             >
               {loading ? 'SENDING...' : 'SEND BRIEF'}
               <span className="material-symbols-outlined text-sm">north_east</span>

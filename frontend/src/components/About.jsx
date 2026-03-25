@@ -1,11 +1,40 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const About = () => {
-    return (
-        <section className="px-6 md:px-12 mb-48 overflow-hidden" id="about">
+  const container = useRef(null);
+
+  useGSAP(() => {
+    gsap.from('.about-img', {
+      scrollTrigger: {
+        trigger: '.about-img',
+        start: 'top 80%',
+      },
+      x: -50,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out'
+    });
+    
+    gsap.from('.about-text', {
+      scrollTrigger: {
+        trigger: '.about-text',
+        start: 'top 80%',
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.2,
+      ease: 'power3.out'
+    });
+  }, { scope: container });
+
+  return (
+    <section ref={container} className="px-6 md:px-12 mb-48 overflow-hidden" id="about">
             <div className="max-w-6xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-16 items-center">
-                    <div className="md:col-span-5">
+                    <div className="md:col-span-5 about-img">
                         <div className="relative group">
                             <div className="aspect-[3/4] bg-surface-container border border-white/5 overflow-hidden">
                                 <img
@@ -20,9 +49,9 @@ const About = () => {
                         </div>
                     </div>
                     <div className="md:col-span-7">
-                        <p className="font-label text-[10px] tracking-[0.4em] text-primary uppercase mb-6">Manifesto &amp; Identity</p>
-                        <h2 className="font-headline text-5xl md:text-7xl tracking-tighter mb-10 leading-[0.9]">Designing for the <span className="italic">unseen</span> details.</h2>
-                        <div className="space-y-8 font-body text-lg text-on-surface-variant leading-relaxed font-light max-w-xl">
+                        <p className="font-label text-[10px] tracking-[0.4em] text-primary uppercase mb-6 about-text">Manifesto &amp; Identity</p>
+                        <h2 className="font-headline text-5xl md:text-7xl tracking-tighter mb-10 leading-[0.9] about-text">Designing for the <span className="italic">unseen</span> details.</h2>
+                        <div className="space-y-8 font-body text-lg text-on-surface-variant leading-relaxed font-light max-w-xl about-text">
                             <p>
                                 I believe a website is more than just code; it's a digital architecture that should evoke the same visceral response as a well-designed physical space. My philosophy, the <span className="text-white italic">Atelier Approach</span>, focuses on merging editorial aesthetics with uncompromising technical performance.
                             </p>
@@ -30,7 +59,7 @@ const About = () => {
                                 With over six years of experience collaborating with global brands and niche studios, I've developed a methodology that prioritizes intentionality. Every pixel and every line of code serves a purpose: to elevate the user's journey into an experience.
                             </p>
                         </div>
-                        <div className="mt-12 flex flex-wrap gap-8">
+                        <div className="mt-12 flex flex-wrap gap-8 about-text">
                             <div>
                                 <p className="font-label text-[10px] tracking-[0.3em] uppercase text-outline mb-2">Focus</p>
                                 <p className="font-body text-sm text-white">Creative Development</p>

@@ -9,10 +9,13 @@ const NavBar = () => {
       setScrolled(window.scrollY > 50);
       
       const projects = document.getElementById('projects');
+      const about = document.getElementById('about');
       const contact = document.getElementById('contact');
       
       if (contact && window.scrollY >= contact.offsetTop - window.innerHeight / 2) {
         setActiveSection('contact');
+      } else if (about && window.scrollY >= about.offsetTop - window.innerHeight / 2) {
+        setActiveSection('about');
       } else if (projects && window.scrollY >= projects.offsetTop - window.innerHeight / 2) {
         setActiveSection('projects');
       } else {
@@ -53,6 +56,16 @@ const NavBar = () => {
           }`}
         >
           Projects
+        </button>
+        <button 
+          onClick={() => scrollToSection('about')}
+          className={`font-body text-xs tracking-[0.2em] border-b pb-1 cursor-pointer transition-all duration-500 uppercase ${
+            activeSection === 'about' 
+              ? 'text-[#b1c5ff] border-[#b1c5ff]' 
+              : 'text-slate-400 border-transparent hover:text-[#b1c5ff] hover:opacity-100 opacity-80'
+          }`}
+        >
+          About
         </button>
         <button 
           onClick={() => scrollToSection('contact')}
