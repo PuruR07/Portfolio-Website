@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ProjectCard from './ProjectCard';
@@ -60,8 +60,31 @@ const projectsData = [
   }
 ];
 
+const ProjectCardSkeleton = ({ index }) => (
+  <div className={`w-full ${index % 2 !== 0 ? 'md:mt-24' : ''}`}>
+    <div className="aspect-video bg-white/5 animate-pulse mb-8 relative"></div>
+    <div className="flex justify-between items-start">
+      <div className="w-full pr-4">
+        <div className="h-3 w-24 bg-white/10 animate-pulse mb-3"></div>
+        <div className="h-8 w-2/3 bg-white/5 animate-pulse mb-2"></div>
+        <div className="h-10 w-24 bg-white/5 animate-pulse mt-6 md:hidden"></div>
+      </div>
+      <div className="h-6 w-8 bg-white/5 animate-pulse"></div>
+    </div>
+  </div>
+);
+
 const Projects = () => {
   const container = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading for better UX transition
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useGSAP(() => {
     gsap.from('.projects-header', {
@@ -87,42 +110,55 @@ const Projects = () => {
         <p className="font-label text-xs tracking-[0.3em] uppercase text-outline">Vol. 01 — 24</p>
       </div>
 
-      {clientProjects.length > 0 && (
+      {isLoading ? (
         <div className="mb-32">
-          <h3 className="font-headline text-3xl md:text-4xl tracking-tighter uppercase mb-16 text-primary">Client Work</h3>
+          <div className="h-10 w-48 bg-white/10 animate-pulse mb-16"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-32 gap-x-16">
-            {clientProjects.map((project, index) => (
-              <ProjectCard
-                key={index}
-                index={index}
-                title={project.title}
-                techStack={project.techStack}
-                liveDemoUrl={project.liveDemoUrl}
-                image={project.image}
-                isClientWork={true}
-              />
+            {[0, 1, 2, 3].map((_, index) => (
+              <ProjectCardSkeleton key={index} index={index} />
             ))}
           </div>
         </div>
-      )}
+      ) : (
+        <>
+          {clientProjects.length > 0 && (
+            <div className="mb-32">
+              <h3 className="font-headline text-3xl md:text-4xl tracking-tighter uppercase mb-16 text-primary">Client Work</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-32 gap-x-16">
+                {clientProjects.map((project, index) => (
+                  <ProjectCard
+                    key={index}
+                    index={index}
+                    title={project.title}
+                    techStack={project.techStack}
+                    liveDemoUrl={project.liveDemoUrl}
+                    image={project.image}
+                    isClientWork={true}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
 
-      {demoProjects.length > 0 && (
-        <div>
-          <h3 className="font-headline text-3xl md:text-4xl tracking-tighter uppercase mb-16 text-white">Demo Projects</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-32 gap-x-16">
-            {demoProjects.map((project, index) => (
-              <ProjectCard
-                key={index}
-                index={clientProjects.length + index}
-                title={project.title}
-                techStack={project.techStack}
-                liveDemoUrl={project.liveDemoUrl}
-                image={project.image}
-                isClientWork={false}
-              />
-            ))}
-          </div>
-        </div>
+          {demoProjects.length > 0 && (
+            <div>
+              <h3 className="font-headline text-3xl md:text-4xl tracking-tighter uppercase mb-16 text-white">Demo Projects</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-32 gap-x-16">
+                {demoProjects.map((project, index) => (
+                  <ProjectCard
+                    key={index}
+                    index={clientProjects.length + index}
+                    title={project.title}
+                    techStack={project.techStack}
+                    liveDemoUrl={project.liveDemoUrl}
+                    image={project.image}
+                    isClientWork={false}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       )}
     </section>
   );
