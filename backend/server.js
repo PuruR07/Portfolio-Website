@@ -52,10 +52,11 @@ app.use(helmet({
 // ==========================================
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 3, // Limit each IP to 3 requests per `window`
+  max: 10, // Bumped to 10 so we can actually test it!
   message: 'Too many requests from this IP, please try again after 15 minutes',
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => req.method === 'OPTIONS' // ChatGPT's magic fix!
 });
 app.use('/api', apiLimiter);
 
