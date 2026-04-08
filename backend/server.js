@@ -18,12 +18,10 @@ app.set('trust proxy', 1);
 
 const PORT = process.env.PORT || 5000;
 
-// Security Middlewares
-app.use(helmet());
-
 // ==========================================
-// THE TRUE BULLETPROOF CORS FIX
+// 1. THE TRUE BULLETPROOF CORS FIX
 // ==========================================
+// This MUST come before Helmet and your routes.
 const corsOptions = {
   origin: [
     'https://pururaghuwanshi.in',
@@ -41,10 +39,17 @@ app.use(cors(corsOptions));
 
 // Apply the EXACT SAME rules to the preflight checks
 app.options('*', cors(corsOptions));
-// ===================================================
 
+// ==========================================
+// 2. HELMET (Configured to allow CORS)
+// ==========================================
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
 
-// Rate Limiting on API endpoints
+// ==========================================
+// 3. RATE LIMITING & PARSERS
+// ==========================================
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 3, // Limit each IP to 3 requests per `window`
@@ -63,6 +68,9 @@ app.use(mongoSanitize());
 // Data Sanitization against XSS
 app.use(xss());
 
+// ==========================================
+// 4. ROUTES
+// ==========================================
 // Basic health check
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'OK', message: 'Secure backend is running' });
