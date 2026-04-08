@@ -8,20 +8,23 @@ require('dotenv').config();
 const connectDB = require('./config/db');
 const Contact = require('./models/Contact');
 
-// Connect to database
-connectDB();
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error('DB connection failed:', err);
+  }
+};
 
+startServer();
 const app = express();
-
-// Trust proxy for Render/Heroku rate limiting
 app.set('trust proxy', 1);
 
 const PORT = process.env.PORT || 5000;
 
-// ==========================================
-// 1. THE TRUE BULLETPROOF CORS FIX
-// ==========================================
-// This MUST come before Helmet and your routes.
 const corsOptions = {
   origin: [
     'https://pururaghuwanshi.in',
@@ -34,64 +37,57 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
-// Apply the rules to standard requests
-app.use(cors(corsOptions));
-
-// Apply the EXACT SAME rules to the preflight checks
+// ✅ STEP 1: Handle ALL preflight requests immediately.
+// This must be the very first thing — before helmet, before rate limiting.
 app.options('*', cors(corsOptions));
 
-// ==========================================
-// 2. HELMET (Configured to allow CORS)
-// ==========================================
-app.use(helmet({
-  crossOriginResourcePolicy: false,
-}));
+// ✅ STEP 2: Apply CORS headers to all other requests.
+app.use(cors(corsOptions));
 
-// ==========================================
-// 3. RATE LIMITING & PARSERS
-// ==========================================
-const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // Bumped to 10 so we can actually test it!
-  message: 'Too many requests from this IP, please try again after 15 minutes',
+// ✅ STEP 3: Helmet after CORS.
+app.use(helmet({ crossOriginResourcePolicy: false }));
+
+// ✅ STEP 4: Rate limiter only on non-OPTIONS requests.
+// Scoped to /api/contact only (not the health check).
+const contactLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 5,
+  message: { error: 'Too many messages sent. Please try again in an hour.' },
   standardHeaders: true,
   legacyHeaders: false,
-  skip: (req) => req.method === 'OPTIONS' // ChatGPT's magic fix!
+  // Belt-and-suspenders: skip preflight even though step 1 already handles it
+  skip: (req) => req.method === 'OPTIONS'
 });
-app.use('/api', apiLimiter);
 
-// Body parser
 app.use(express.json({ limit: '10kb' }));
-
-// Data Sanitization against NoSQL query injection
 app.use(mongoSanitize());
-
-// Data Sanitization against XSS
 app.use(xss());
 
-// ==========================================
-// 4. ROUTES
-// ==========================================
-// Basic health check
+// Routes
 app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'OK', message: 'Secure backend is running' });
+  res.status(200).json({ status: 'OK' });
 });
 
-// Contact form submission route
-app.post('/api/contact', async (req, res) => {
+app.post('/api/contact', contactLimiter, async (req, res) => {
   try {
     const { name, email, message } = req.body;
 
-    // Basic validation
     if (!name || !email || !message) {
       return res.status(400).json({ error: 'Please provide all required fields' });
     }
 
-    const contact = await Contact.create({
-      name,
-      email,
-      message
-    });
+    // Length guards
+    if (name.length > 100 || email.length > 254 || message.length > 2000) {
+      return res.status(400).json({ error: 'Input exceeds maximum allowed length' });
+    }
+
+    // Email format check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Invalid email address' });
+    }
+
+    await Contact.create({ name, email, message });
 
     res.status(200).json({ success: true, message: 'Message sent successfully' });
   } catch (error) {
@@ -104,6 +100,10 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong' });
 });
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
