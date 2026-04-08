@@ -22,31 +22,26 @@ const PORT = process.env.PORT || 5000;
 app.use(helmet());
 
 // ==========================================
-// THE BULLETPROOF CORS FIX
+// THE TRUE BULLETPROOF CORS FIX
 // ==========================================
-const allowedOrigins = [
-  'https://pururaghuwanshi.in',
-  'https://www.pururaghuwanshi.in',
-  'http://localhost:5173'
-];
-
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      return callback(new Error('CORS blocked'), false);
-    }
-    return callback(null, true);
-  },
+const corsOptions = {
+  origin: [
+    'https://pururaghuwanshi.in',
+    'https://www.pururaghuwanshi.in',
+    'http://localhost:5173'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   optionsSuccessStatus: 200
-}));
+};
 
-// The preflight safety net
-app.options('*', cors());
-// ==========================================
+// Apply the rules to standard requests
+app.use(cors(corsOptions));
+
+// Apply the EXACT SAME rules to the preflight checks
+app.options('*', cors(corsOptions));
+// ===================================================
 
 
 // Rate Limiting on API endpoints
