@@ -16,6 +16,7 @@ const projectsData = [
     techStack: ['React', 'Vite', 'Tailwind'],
     liveDemoUrl: 'https://ladlicollection.netlify.app/',
     image: ladliImg,
+    altText: 'Ladli Collection kids clothing store web interface',
     isClientWork: true
   },
   {
@@ -24,6 +25,7 @@ const projectsData = [
     techStack: ['React', 'Appwrite', 'Tailwind', 'Razor Pay', 'API'],
     liveDemoUrl: 'https://meer.co.in/',
     image: meerImg,
+    altText: 'Meer handmade crochet products responsive business website',
     isClientWork: true
   },
   {
@@ -32,6 +34,7 @@ const projectsData = [
     techStack: ['React', 'Vite', 'Tailwind'],
     liveDemoUrl: 'https://vidisha-mahurat.vercel.app/',
     image: choghadiyaImg,
+    altText: 'React-based Choghadiya calculator layout for traditional mahurat timings',
     isClientWork: false
   },
   {
@@ -40,6 +43,7 @@ const projectsData = [
     techStack: ['React', 'Vite', 'Tailwind'],
     liveDemoUrl: 'https://mamasalon.netlify.app/',
     image: mamaSalonImg,
+    altText: 'Mama Salon responsive business website displaying salon services',
     isClientWork: true
   },
   {
@@ -48,6 +52,7 @@ const projectsData = [
     techStack: ['React', 'Vite', 'Tailwind', 'Frame Motion', 'Appwrite', 'API', 'Resend'],
     liveDemoUrl: 'https://riddhi-siddhi-homes.netlify.app/',
     image: rshImg,
+    altText: 'Riddhi Siddhi Homes real estate agency website showcasing property listings',
     isClientWork: true
   },
   {
@@ -56,6 +61,7 @@ const projectsData = [
     techStack: ['React', 'Vite', 'Tailwind', 'Frame Motion', 'Appwrite', 'API', 'Resend'],
     liveDemoUrl: 'https://shivamcomputers.shop/',
     image: scImg,
+    altText: 'Shivam Computers hardware store website full page layout',
     isClientWork: true
   }
 ];
@@ -133,6 +139,7 @@ const Projects = () => {
                     techStack={project.techStack}
                     liveDemoUrl={project.liveDemoUrl}
                     image={project.image}
+                    altText={project.altText}
                     isClientWork={true}
                   />
                 ))}
@@ -152,6 +159,7 @@ const Projects = () => {
                     techStack={project.techStack}
                     liveDemoUrl={project.liveDemoUrl}
                     image={project.image}
+                    altText={project.altText}
                     isClientWork={false}
                   />
                 ))}

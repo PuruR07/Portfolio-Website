@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-const ProjectCard = ({ title, techStack, liveDemoUrl, image, index, isClientWork }) => {
+const ProjectCard = ({ title, techStack, liveDemoUrl, image, index, isClientWork, altText }) => {
   const cardRef = useRef(null);
 
   useGSAP(() => {
@@ -22,7 +22,7 @@ const ProjectCard = ({ title, techStack, liveDemoUrl, image, index, isClientWork
     <div ref={cardRef} className={`group cursor-pointer ${index % 2 !== 0 ? 'md:mt-24' : ''}`}>
       <div className="aspect-video bg-surface-container overflow-hidden mb-8 relative">
         <img
-          alt={title}
+          alt={altText || title}
           className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
           src={image}
         />

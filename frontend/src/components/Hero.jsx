@@ -65,7 +65,7 @@ const Hero = () => {
         <div className="md:col-span-4 flex justify-end">
           <div className="w-full aspect-[3/4] bg-surface-container-low relative overflow-hidden group">
             <img 
-              alt="Developer Workspace" 
+              alt="Developer workspace showcasing a productive coding environment with a sleek setup" 
               className="w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-transform duration-700 hero-img" 
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8oh0fh8y36mxl2SmA0sRam82i95LLm_Tj0v9qyl52xkh8zJ2McgEU-IUIJzg4OKuRqo0zfOMpqBbQGKHiHur9ybdIuEHOEG5MaxQTFls9-Elg57XVmPOCKhFi4b857Sp2_Eja1IdPqKcQdnO8nPEKSe-e6k9wpAsMcfa9zD3-4NOfNzfX0-fV5oin9E9HavWItgzhLFFezo09AB60llVMw1Tm5UcJ1f-HeLwYoW1EQjZ41F89cNBSDe7YYGBTDzS3D6a5uHfWMLU"
             />

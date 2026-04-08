@@ -38,7 +38,7 @@ const About = () => {
                         <div className="relative group">
                             <div className="aspect-[3/4] bg-surface-container border border-white/5 overflow-hidden">
                                 <img
-                                    alt="Portrait of the designer"
+                                    alt="Black and white portrait of Puru Raghuwanshi, Full Stack Developer and Designer"
                                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
                                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIt0b4Bq_gn29LwT1uKRmJ5WlFUSdyx05Oa0I53ToYiSdXy-nZ9_ypmC2jmRrS-JLLf_MDeF7aam7oAXN3Y5Zej16yj7kHgD3O511FCcHX2Y68uNHDocq_6EkbMH50-_5rpgRGdzQZQYdB9gV0HDTf0jwtsMjlMnfjxWai26oBkXxCUYRfv819Nma6b_b_mH9uS2SBaBqZVtsiiLOpgkh3E2ddJn5C-N7nQMaSd_ulXjURSiPQMjR43sfDQcu1Kb0hRVeJ7J3PF3E"
                                 />

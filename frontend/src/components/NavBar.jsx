@@ -48,7 +48,7 @@ const NavBar = () => {
   };
 
   return (
-    <>
+    <header>
       <nav className={`fixed top-0 w-full z-50 transition-all duration-500 flex justify-between items-center px-6 md:px-12 ${isMobileMenuOpen
           ? 'bg-transparent py-6 border-transparent'
           : scrolled
@@ -130,7 +130,7 @@ const NavBar = () => {
           </button>
         </div>
       </div>
-    </>
+    </header>
   );
 };
 
