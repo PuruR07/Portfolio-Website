@@ -4,27 +4,20 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
+const morgan = require('morgan');
 require('dotenv').config();
 const connectDB = require('./config/db');
 const Contact = require('./models/Contact');
 
-const startServer = async () => {
-  try {
-    await connectDB();
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  } catch (err) {
-    console.error('DB connection failed:', err);
-  }
-};
-
-startServer();
 const app = express();
 app.set('trust proxy', 1);
 
 const PORT = process.env.PORT || 5000;
 
+// ── REQUEST LOGGING ───────────────────────────────────────
+app.use(morgan('combined'));
+
+// ── CORS ──────────────────────────────────────────────────
 const corsOptions = {
   origin: [
     'https://pururaghuwanshi.in',
@@ -37,41 +30,38 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
-// ✅ STEP 1: Handle ALL preflight requests immediately.
-// This must be the very first thing — before helmet, before rate limiting.
-app.options('*', cors(corsOptions));
-
-// ✅ STEP 2: Apply CORS headers to all other requests.
+app.options('*', cors(corsOptions));  // preflight — must be first
 app.use(cors(corsOptions));
 
-// ✅ STEP 3: Helmet after CORS.
+// ── SECURITY MIDDLEWARE ───────────────────────────────────
 app.use(helmet({ crossOriginResourcePolicy: false }));
+app.use(express.json({ limit: '10kb' }));
+app.use(mongoSanitize());
+app.use(xss());
 
-// ✅ STEP 4: Rate limiter only on non-OPTIONS requests.
-// Scoped to /api/contact only (not the health check).
+// ── RATE LIMITER ──────────────────────────────────────────
 const contactLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 5,
   message: { error: 'Too many messages sent. Please try again in an hour.' },
   standardHeaders: true,
   legacyHeaders: false,
-  // Belt-and-suspenders: skip preflight even though step 1 already handles it
   skip: (req) => req.method === 'OPTIONS'
 });
 
-app.use(express.json({ limit: '10kb' }));
-app.use(mongoSanitize());
-app.use(xss());
-
-// Routes
+// ── ROUTES ────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'OK' });
 });
 
 app.post('/api/contact', contactLimiter, async (req, res) => {
   try {
-    const { name, email, message } = req.body;
+    // Trim inputs before any validation
+    const name = req.body.name?.trim();
+    const email = req.body.email?.trim().toLowerCase();
+    const message = req.body.message?.trim();
 
+    // Presence check (catches empty strings after trim too)
     if (!name || !email || !message) {
       return res.status(400).json({ error: 'Please provide all required fields' });
     }
@@ -88,8 +78,8 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
     }
 
     await Contact.create({ name, email, message });
-
     res.status(200).json({ success: true, message: 'Message sent successfully' });
+
   } catch (error) {
     console.error('Error saving contact:', error.message);
     if (error.name === 'ValidationError') {
@@ -100,10 +90,38 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
   }
 });
 
-// Global error handler
+// ── 404 HANDLER ───────────────────────────────────────────
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+// ── GLOBAL ERROR HANDLER ──────────────────────────────────
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong' });
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// ── START ─────────────────────────────────────────────────
+const startServer = async () => {
+  try {
+    await connectDB();
+    const server = app.listen(PORT, () =>
+      console.log(`Server running on port ${PORT}`)
+    );
+
+    // Graceful shutdown on Render/process restart
+    process.on('SIGTERM', () => {
+      console.log('SIGTERM received, shutting down gracefully');
+      server.close(() => {
+        console.log('Process terminated');
+        process.exit(0);
+      });
+    });
+
+  } catch (err) {
+    console.error('DB connection failed:', err);
+    process.exit(1);
+  }
+};
+
+startServer();
