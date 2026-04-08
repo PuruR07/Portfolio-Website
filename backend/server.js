@@ -21,12 +21,33 @@ const PORT = process.env.PORT || 5000;
 // Security Middlewares
 app.use(helmet());
 
-// CORS Configuration (Strictly configured)
-const corsOptions = {
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+// ==========================================
+// THE BULLETPROOF CORS FIX
+// ==========================================
+const allowedOrigins = [
+  'https://pururaghuwanshi.in',
+  'https://www.pururaghuwanshi.in',
+  'http://localhost:5173'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return callback(new Error('CORS blocked'), false);
+    }
+    return callback(null, true);
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
   optionsSuccessStatus: 200
-};
-app.use(cors(corsOptions));
+}));
+
+// The preflight safety net
+app.options('*', cors());
+// ==========================================
+
 
 // Rate Limiting on API endpoints
 const apiLimiter = rateLimit({
@@ -56,7 +77,7 @@ app.get('/api/health', (req, res) => {
 app.post('/api/contact', async (req, res) => {
   try {
     const { name, email, message } = req.body;
-    
+
     // Basic validation
     if (!name || !email || !message) {
       return res.status(400).json({ error: 'Please provide all required fields' });
