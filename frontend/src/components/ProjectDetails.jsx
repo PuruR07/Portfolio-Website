@@ -91,9 +91,9 @@ const ProjectDetails = () => {
           )}
 
           {/* Project Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-16 xl:gap-24 items-start">
             {/* Details Column */}
-            <div className="lg:col-span-5 space-y-10">
+            <div className="xl:col-span-5 space-y-10">
               {/* Description */}
               <div>
                 <div className="h-4 w-28 bg-slate-800/50 rounded animate-pulse mb-4"></div>
@@ -114,7 +114,7 @@ const ProjectDetails = () => {
             </div>
 
             {/* Gallery & Narrative Column */}
-            <div className="lg:col-span-7 space-y-16">
+            <div className="xl:col-span-7 space-y-16">
               {/* Gallery Grid */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
                 {/* Main Hero Image placeholder */}
@@ -192,9 +192,9 @@ const ProjectDetails = () => {
         )}
 
         {/* Project Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-16 xl:gap-24 items-start">
           {/* Details Column */}
-          <div className="lg:col-span-5 space-y-10">
+          <div className="xl:col-span-5 space-y-10">
             {/* Description */}
             <div className="details-animate">
               <h3 className="font-label text-xs tracking-[0.3em] uppercase text-outline mb-4">
@@ -222,7 +222,7 @@ const ProjectDetails = () => {
           </div>
 
           {/* Gallery & Narrative Column */}
-          <div className="lg:col-span-7 space-y-16 details-animate">
+          <div className="xl:col-span-7 space-y-16 details-animate">
             {/* Gallery Grid */}
             {galleryImages.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
