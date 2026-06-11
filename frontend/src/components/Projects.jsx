@@ -5,7 +5,7 @@ import ProjectCard from './ProjectCard';
 import { projectsData } from '../data/projectsData';
 
 const ProjectCardSkeleton = ({ index }) => (
-  <div className={`w-full ${index % 2 !== 0 ? 'md:mt-24' : ''}`}>
+  <div className={`w-full ${index % 2 !== 0 ? 'xl:mt-24' : ''}`}>
     <div className="aspect-video bg-white/5 animate-pulse mb-8 relative"></div>
     <div className="flex justify-between items-start">
       <div className="w-full pr-4">
@@ -57,7 +57,7 @@ const Projects = () => {
       {isLoading ? (
         <div className="mb-32">
           <div className="h-10 w-48 bg-white/10 animate-pulse mb-16"></div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-32 gap-x-16">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
             {[0, 1, 2, 3].map((_, index) => (
               <ProjectCardSkeleton key={index} index={index} />
             ))}
@@ -68,7 +68,7 @@ const Projects = () => {
           {clientProjects.length > 0 && (
             <div className="mb-32">
               <h3 className="font-headline text-3xl md:text-4xl tracking-tighter uppercase mb-16 text-primary">Client Work</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-32 gap-x-16">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
                 {clientProjects.map((project, index) => (
                   <ProjectCard
                     key={index}
@@ -89,7 +89,7 @@ const Projects = () => {
           {demoProjects.length > 0 && (
             <div>
               <h3 className="font-headline text-3xl md:text-4xl tracking-tighter uppercase mb-16 text-white">Demo Projects</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-32 gap-x-16">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
                 {demoProjects.map((project, index) => (
                   <ProjectCard
                     key={index}
