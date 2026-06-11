@@ -30,7 +30,7 @@ const Contact = () => {
       ease: 'power3.out'
     });
   }, { scope: container });
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', mobileNumber: '', message: '' });
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -71,7 +71,7 @@ const Contact = () => {
 
       if (response.ok) {
         toast.success(data.message || 'Message sent successfully!', { id: toastId });
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', email: '', mobileNumber: '', message: '' });
       } else {
         toast.error(data.error || 'Something went wrong', { id: toastId });
       }
@@ -135,6 +135,18 @@ const Contact = () => {
                 className="w-full bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary px-0 py-4 font-body text-lg placeholder:text-surface-container-highest transition-all text-on-surface"
                 placeholder="EMAIL@DOMAIN.COM"
                 type="email"
+              />
+            </div>
+            <div className="group relative contact-form-item">
+              <label htmlFor="mobileNumber" className="block font-label text-[10px] tracking-[0.3em] uppercase text-outline mb-2 group-focus-within:text-primary transition-colors">MOBILE NUMBER</label>
+              <input
+                id="mobileNumber"
+                name="mobileNumber"
+                value={formData.mobileNumber}
+                onChange={handleChange}
+                className="w-full bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary px-0 py-4 font-body text-lg placeholder:text-surface-container-highest transition-all text-on-surface"
+                placeholder="YOUR MOBILE NUMBER"
+                type="tel"
               />
             </div>
             <div className="group relative contact-form-item">

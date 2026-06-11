@@ -14,7 +14,7 @@ const Hero = () => {
       ease: 'power4.out',
       delay: 0.2
     });
-    
+
     gsap.from('.hero-fade-in', {
       y: 30,
       opacity: 0,
@@ -23,7 +23,7 @@ const Hero = () => {
       ease: 'power3.out',
       delay: 0.8
     });
-    
+
     gsap.from('.hero-img', {
       scale: 1.1,
       opacity: 0,
@@ -41,8 +41,12 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" ref={container} className="min-h-[819px] flex flex-col justify-center px-6 md:px-12 mb-24 pt-32">
-      <div className="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-end">
+    <section id="home" ref={container} className="min-h-screen flex flex-col justify-center px-6 md:px-12 mb-24 pt-32 relative overflow-hidden">
+      {/* Background patterns */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--color-primary-container),transparent_55%)] opacity-25 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:4.5rem_4.5rem] pointer-events-none"></div>
+
+      <div className="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-end relative z-10">
         <div className="md:col-span-8">
           <h1 className="font-headline text-[clamp(3.5rem,10vw,7rem)] leading-[0.9] tracking-tighter mb-8 flex flex-col">
             <span className="block hero-title-line">I build</span>
@@ -52,7 +56,7 @@ const Hero = () => {
           <p className="font-body text-xl md:text-2xl text-on-surface-variant max-w-xl leading-relaxed font-light mb-10 hero-fade-in">
             I build scalable MERN stack applications with stunning, intuitive UI integrations. Let's turn your ideas into reality.
           </p>
-          <div className="flex flex-col sm:flex-row items-start gap-6 hero-fade-in">
+          <div className="flex flex-col sm:flex-row items-start gap-6 hero-fade-in mb-16">
             <button
               onClick={() => scrollToSection('projects')}
               className="bg-primary text-on-primary px-10 py-4 font-bold tracking-[0.1em] uppercase text-sm hover:opacity-90 transition-all flex items-center justify-center gap-4 cursor-pointer"
@@ -61,12 +65,30 @@ const Hero = () => {
               <span className="material-symbols-outlined text-sm">east</span>
             </button>
           </div>
+
+          {/* Quick Stats Grid */}
+          <div className="flex flex-wrap items-center gap-8 border-t border-white/10 pt-8 hero-fade-in">
+            <div>
+              <p className="font-headline text-3xl font-bold text-white">1+</p>
+              <p className="font-label text-[9px] tracking-widest text-outline uppercase">Years Experience</p>
+            </div>
+            <div className="w-[1px] h-8 bg-white/10 hidden sm:block"></div>
+            <div>
+              <p className="font-headline text-3xl font-bold text-white">6+</p>
+              <p className="font-label text-[9px] tracking-widest text-outline uppercase">Projects Built</p>
+            </div>
+            <div className="w-[1px] h-8 bg-white/10 hidden sm:block"></div>
+            <div>
+              <p className="font-headline text-3xl font-bold text-white">100%</p>
+              <p className="font-label text-[9px] tracking-widest text-outline uppercase">Client Satisfaction</p>
+            </div>
+          </div>
         </div>
         <div className="md:col-span-4 flex justify-end">
           <div className="w-full aspect-[3/4] bg-surface-container-low relative overflow-hidden group">
-            <img 
-              alt="Developer workspace showcasing a productive coding environment with a sleek setup" 
-              className="w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-transform duration-700 hero-img" 
+            <img
+              alt="Developer workspace showcasing a productive coding environment with a sleek setup"
+              className="w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-transform duration-700 hero-img"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8oh0fh8y36mxl2SmA0sRam82i95LLm_Tj0v9qyl52xkh8zJ2McgEU-IUIJzg4OKuRqo0zfOMpqBbQGKHiHur9ybdIuEHOEG5MaxQTFls9-Elg57XVmPOCKhFi4b857Sp2_Eja1IdPqKcQdnO8nPEKSe-e6k9wpAsMcfa9zD3-4NOfNzfX0-fV5oin9E9HavWItgzhLFFezo09AB60llVMw1Tm5UcJ1f-HeLwYoW1EQjZ41F89cNBSDe7YYGBTDzS3D6a5uHfWMLU"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60 pointer-events-none"></div>

@@ -18,6 +18,10 @@ const contactSchema = new mongoose.Schema(
         'Please add a valid email',
       ],
     },
+    mobileNumber: {
+      type: String,
+      trim: true,
+    },
     message: {
       type: String,
       required: [true, 'Message is required'],

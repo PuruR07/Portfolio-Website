@@ -2,69 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ProjectCard from './ProjectCard';
-import ladliImg from '../assets/ladlicollection-img.png';
-import meerImg from '../assets/meer-img.png';
-import choghadiyaImg from '../assets/choghadiya-img.png';
-import mamaSalonImg from '../assets/mamasalon-img.png';
-import rshImg from '../assets/RiddhiSiddhiHomes-img.png';
-import scImg from '../assets/shivamcomputer-img.png';
-
-const projectsData = [
-  {
-    title: 'Ladli Collection',
-    description: 'A React-based e-commerce UI for a local clothing store. It features a modern product catalog, dynamic filtering',
-    techStack: ['React', 'Vite', 'Tailwind'],
-    liveDemoUrl: 'https://ladlicollection.netlify.app/',
-    image: ladliImg,
-    altText: 'Ladli Collection kids clothing store web interface',
-    isClientWork: true
-  },
-  {
-    title: 'Meer',
-    description: 'A responsive React business website for a crochet brand, designed to beautifully showcase handmade products and engage prospective customers.',
-    techStack: ['React', 'Appwrite', 'Tailwind', 'Razor Pay', 'API'],
-    liveDemoUrl: 'https://meer.co.in/',
-    image: meerImg,
-    altText: 'Meer handmade crochet products responsive business website',
-    isClientWork: true
-  },
-  {
-    title: 'Choghadiya Calculator',
-    description: 'A dynamic web application developed to accurately calculate and display traditional mahurat timings of Vidisha.',
-    techStack: ['React', 'Vite', 'Tailwind'],
-    liveDemoUrl: 'https://vidisha-mahurat.vercel.app/',
-    image: choghadiyaImg,
-    altText: 'React-based Choghadiya calculator layout for traditional mahurat timings',
-    isClientWork: false
-  },
-  {
-    title: 'Mama Salon',
-    description: 'A responsive React business website for a salon, designed to beautifully showcase salon services and engage prospective customers.',
-    techStack: ['React', 'Vite', 'Tailwind'],
-    liveDemoUrl: 'https://mamasalon.netlify.app/',
-    image: mamaSalonImg,
-    altText: 'Mama Salon responsive business website displaying salon services',
-    isClientWork: true
-  },
-  {
-    title: 'Riddhi Siddhi Homes',
-    description: 'A responsive React business website for a real estate agency, designed to beautifully showcase properties and engage prospective buyers.',
-    techStack: ['React', 'Vite', 'Tailwind', 'Frame Motion', 'Appwrite', 'API', 'Resend'],
-    liveDemoUrl: 'https://riddhi-siddhi-homes.netlify.app/',
-    image: rshImg,
-    altText: 'Riddhi Siddhi Homes real estate agency website showcasing property listings',
-    isClientWork: true
-  },
-  {
-    title: 'Shivam Computers',
-    description: 'A responsive React business website for a computer hardware store, designed to beautifully showcase products and engage prospective customers.',
-    techStack: ['React', 'Vite', 'Tailwind', 'Frame Motion', 'Appwrite', 'API', 'Resend'],
-    liveDemoUrl: 'https://shivamcomputers.shop/',
-    image: scImg,
-    altText: 'Shivam Computers hardware store website full page layout',
-    isClientWork: true
-  }
-];
+import { projectsData } from '../data/projectsData';
 
 const ProjectCardSkeleton = ({ index }) => (
   <div className={`w-full ${index % 2 !== 0 ? 'md:mt-24' : ''}`}>
@@ -134,6 +72,7 @@ const Projects = () => {
                 {clientProjects.map((project, index) => (
                   <ProjectCard
                     key={index}
+                    id={project.id}
                     index={index}
                     title={project.title}
                     techStack={project.techStack}
@@ -154,6 +93,7 @@ const Projects = () => {
                 {demoProjects.map((project, index) => (
                   <ProjectCard
                     key={index}
+                    id={project.id}
                     index={clientProjects.length + index}
                     title={project.title}
                     techStack={project.techStack}

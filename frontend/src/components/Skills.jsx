@@ -33,7 +33,7 @@ const Skills = () => {
   const skillCategories = [
     {
       category: 'Frontend',
-      skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'GSAP']
+      skills: ['React', 'Next.js', 'Tailwind CSS', 'GSAP']
     },
     {
       category: 'Backend',
@@ -41,11 +41,15 @@ const Skills = () => {
     },
     {
       category: 'Design',
-      skills: ['UI/UX', 'Figma', 'Animation', 'Web Design', 'Responsive Design']
+      skills: ['UI/UX', 'Animation', 'Web Design', 'Responsive Design']
     },
     {
       category: 'Tools',
       skills: ['Git', 'Vite', 'VS Code', 'DevTools', 'Performance Optimization']
+    },
+    {
+      category: 'AI Tools',
+      skills: ['Antigravity', 'ChatGPT', 'Claude Code', 'Gemini', 'Stitch AI']
     }
   ];
 
@@ -59,7 +63,7 @@ const Skills = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
           {skillCategories.map((category, idx) => (
             <div key={idx} className="skill-item">
               <div className="bg-surface-container border border-white/5 p-8 hover:border-primary/30 transition-colors duration-300">

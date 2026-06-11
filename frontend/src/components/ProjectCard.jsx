@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-const ProjectCard = ({ title, techStack, liveDemoUrl, image, index, isClientWork, altText }) => {
+const ProjectCard = ({ id, title, techStack, liveDemoUrl, image, index, isClientWork, altText }) => {
   const cardRef = useRef(null);
+  const navigate = useNavigate();
 
   useGSAP(() => {
     gsap.from(cardRef.current, {
@@ -19,30 +21,61 @@ const ProjectCard = ({ title, techStack, liveDemoUrl, image, index, isClientWork
   });
 
   return (
-    <div ref={cardRef} className={`group cursor-pointer ${index % 2 !== 0 ? 'md:mt-24' : ''}`}>
+    <div
+      ref={cardRef}
+      onClick={() => navigate(`/project/${id}`)}
+      className={`group cursor-pointer ${index % 2 !== 0 ? 'md:mt-24' : ''}`}
+    >
       <div className="aspect-video bg-surface-container overflow-hidden mb-8 relative">
         <img
           alt={altText || title}
           className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
           src={image}
         />
-        <div className="hidden md:flex absolute inset-0 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-primary-container/20 backdrop-blur-sm gap-4">
-          <a href={liveDemoUrl} target="_blank" rel="noopener noreferrer" className="font-label text-xs tracking-[0.4em] text-white uppercase border border-white px-6 py-3 hover:bg-white hover:text-black transition-colors">
-            {isClientWork ? 'Live Site' : 'Live Demo'}
-          </a>
+        <div className="hidden md:flex absolute inset-0 flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-primary-container/20 backdrop-blur-sm gap-4">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/project/${id}`);
+            }}
+            className="font-label text-xs tracking-[0.4em] text-white bg-transparent uppercase border border-white px-6 py-3 hover:bg-white hover:text-black transition-colors cursor-pointer"
+          >
+            VIEW DETAILS
+          </button>
+          {liveDemoUrl && (
+            <a
+              href={liveDemoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="font-label text-xs tracking-[0.4em] text-white bg-transparent uppercase border border-white px-6 py-3 hover:bg-white hover:text-black transition-colors cursor-pointer"
+            >
+              {isClientWork ? 'Live Site' : 'Live Demo'}
+            </a>
+          )}
         </div>
       </div>
       <div className="flex justify-between items-start">
-        <div>
-          <p className="font-label text-[10px] tracking-[0.4em] text-primary uppercase mb-2">
-            {techStack.join(' / ')}
-          </p>
-          <h3 className="font-headline text-3xl tracking-tight text-white">{title}</h3>
-          <div className="flex flex-wrap gap-4 mt-6 md:hidden">
-            <a href={liveDemoUrl} target="_blank" rel="noopener noreferrer" className="font-label text-xs tracking-[0.2em] text-white uppercase border border-white px-4 py-2 hover:bg-white hover:text-black transition-colors">
-              {isClientWork ? 'Live Site' : 'Live Demo'}
-            </a>
+        <div className="flex-1 pr-4">
+          <div>
+            <p className="font-label text-[10px] tracking-[0.4em] text-primary uppercase mb-2">
+              {techStack.join(' / ')}
+            </p>
+            <h3 className="font-headline text-3xl tracking-tight text-white hover:text-primary transition-colors">{title}</h3>
           </div>
+          {liveDemoUrl && (
+            <div className="flex flex-wrap gap-4 mt-6 md:hidden">
+              <a
+                href={liveDemoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="font-label text-xs tracking-[0.2em] text-white uppercase border border-white px-4 py-2 hover:bg-white hover:text-black transition-colors"
+              >
+                {isClientWork ? 'Live Site' : 'Live Demo'}
+              </a>
+            </div>
+          )}
         </div>
         <span className="font-headline italic text-xl text-white">0{index + 1}</span>
       </div>

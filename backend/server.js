@@ -8,6 +8,9 @@ const morgan = require('morgan');
 require('dotenv').config();
 const connectDB = require('./config/db');
 const Contact = require('./models/Contact');
+const { Resend } = require('resend');
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const app = express();
 app.set('trust proxy', 1);
@@ -59,6 +62,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
     // Trim inputs before any validation
     const name = req.body.name?.trim();
     const email = req.body.email?.trim().toLowerCase();
+    const mobileNumber = req.body.mobileNumber?.trim();
     const message = req.body.message?.trim();
 
     // Presence check (catches empty strings after trim too)
@@ -77,7 +81,28 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
       return res.status(400).json({ error: 'Invalid email address' });
     }
 
-    await Contact.create({ name, email, message });
+    await Contact.create({ name, email, mobileNumber, message });
+
+    // Send email notification via Resend
+    const recipient = process.env.EMAIL_USER || 'pururaghuwanshi07@gmail.com';
+    try {
+      await resend.emails.send({
+        from: 'Portfolio Contact <onboarding@resend.dev>',
+        to: recipient,
+        subject: `New Portfolio Contact: ${name}`,
+        html: `
+          <h3>New Portfolio Contact Submission</h3>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Mobile Number:</strong> ${mobileNumber || 'Not provided'}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message.replace(/\n/g, '<br>')}</p>
+        `
+      });
+    } catch (emailError) {
+      console.error('Failed to send email via Resend:', emailError);
+    }
+
     res.status(200).json({ success: true, message: 'Message sent successfully' });
 
   } catch (error) {
